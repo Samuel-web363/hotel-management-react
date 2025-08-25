@@ -8,7 +8,6 @@ const Navigation = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  // Handle scroll effect for navbar
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -19,7 +18,7 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
+
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
