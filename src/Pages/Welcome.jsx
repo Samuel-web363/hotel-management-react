@@ -65,12 +65,14 @@ const Welcome = () => {
       <section className="pricing">
         <div className="section-header">
           <h2>Luxury Accommodations</h2>
-          <p>Choose from our collection of thoughtfully designed rooms and suites, each offering distinctive comfort and style</p>
+          <p>
+            Choose from our collection of thoughtfully designed rooms and suites, each offering distinctive comfort and style
+          </p>
         </div>
         <div className="pricing-grid">
           <div className="pricing-card">
             <img
-              src="https://images.unsplash.com/photo-1600585152837-2f28b2a09a1f?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
               alt="Deluxe Room at SamLuxe Hotel"
               className="pricing-img"
             />
@@ -87,7 +89,7 @@ const Welcome = () => {
 
           <div className="pricing-card">
             <img
-              src="https://images.unsplash.com/photo-1616593987084-1c22c5d9b0db?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80"
               alt="Executive Suite at SamLuxe Hotel"
               className="pricing-img"
             />
@@ -104,10 +106,11 @@ const Welcome = () => {
 
           <div className="pricing-card">
             <img
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118b?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80"
               alt="Presidential Suite at SamLuxe Hotel"
               className="pricing-img"
             />
+
             <h3>Presidential Suite</h3>
             <p className="price">$875 / night</p>
             <ul>
@@ -128,18 +131,18 @@ const Welcome = () => {
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ 
-            fontSize: '2.5rem', 
-            color: '#f4c542', 
+          <h2 style={{
+            fontSize: '2.5rem',
+            color: '#f4c542',
             marginBottom: '20px',
             fontWeight: '300',
             letterSpacing: '2px'
           }}>
             Exclusive Member Benefits
           </h2>
-          <p style={{ 
-            fontSize: '1.2rem', 
-            color: '#ccc', 
+          <p style={{
+            fontSize: '1.2rem',
+            color: '#ccc',
             marginBottom: '40px',
             lineHeight: '1.8'
           }}>
