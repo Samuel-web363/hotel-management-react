@@ -15,25 +15,24 @@ const Signin = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid";
     if (!formData.password.trim()) newErrors.password = "Password is required";
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate form before submitting
     if (!validateForm()) return;
-    
+
     setIsLoading(true);
-    
+
     try {
-      // Additional validation checks
       if (!formData.email) {
         toast.error("Please enter email!");
         setIsLoading(false);
@@ -45,35 +44,31 @@ const Signin = () => {
         return;
       }
 
-      // Prepare data for API
       const signinData = {
         identifier: formData.email,
         password: formData.password
       };
-      
+
       console.log("Sending signin data:", signinData);
-      
-      // Make API call for signin
+
       const response = await axios.post("https://task-79s6.onrender.com/api/login", signinData);
 
       const result = response.data;
       console.log({ result });
 
-      // Handle successful signin
       if (result?.status === true || result?.success) {
         const accessToken = result?.data?.accessToken;
         const user = result?.data?.user;
-        
+
         console.log({ accessToken, user });
-        
-        // Store user data in session storage
+
         if (accessToken) {
           sessionStorage.setItem('accessToken', accessToken);
-          
-          // Show success message
+
+
           toast.success(result?.message || "Welcome back to SamLuxe Hotel!");
-          
-          // Navigate to dashboard or home
+
+
           navigate("/dashboard");
         } else {
           toast.error("Login unsuccessful! Please check your credentials.");
@@ -81,14 +76,14 @@ const Signin = () => {
       } else {
         toast.error("Login unsuccessful! Please check your credentials.");
       }
-      
+
     } catch (error) {
       console.log("Full error object:", error);
       console.log("Error response:", error.response);
       console.log("Error message:", error.message);
-      
+
       let errorMsg = "An error occurred during signin";
-      
+
       if (error?.response?.data?.message) {
         const apiMessage = error.response.data.message;
         // Handle array of error messages
@@ -97,17 +92,17 @@ const Signin = () => {
         } else {
           errorMsg = apiMessage;
         }
-        
-        // Make user-friendly messages for common errors
-        if (errorMsg.toLowerCase().includes('invalid credentials') || 
-            errorMsg.toLowerCase().includes('incorrect password') ||
-            errorMsg.toLowerCase().includes('user not found')) {
+
+
+        if (errorMsg.toLowerCase().includes('invalid credentials') ||
+          errorMsg.toLowerCase().includes('incorrect password') ||
+          errorMsg.toLowerCase().includes('user not found')) {
           errorMsg = "Invalid email or password. Please check your credentials and try again.";
         }
       } else if (error.message) {
         errorMsg = error.message;
       }
-      
+
       toast.error(errorMsg);
       console.log({ errorMsg });
     } finally {
@@ -120,7 +115,7 @@ const Signin = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
-    // Clear error when user starts typing
+
     if (errors[e.target.name]) {
       setErrors({
         ...errors,
@@ -146,7 +141,7 @@ const Signin = () => {
           <div className="card-header">
             <h1 className="signin-title">Welcome Back</h1>
             <p className="signin-subtitle">
-              Sign in to your exclusive account and continue enjoying our 
+              Sign in to your exclusive account and continue enjoying our
               luxury accommodations and premium services.
             </p>
           </div>
@@ -183,7 +178,7 @@ const Signin = () => {
                   className="toggle-password"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? "👁️" : "👁️‍🗨️"}
+                  {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
               {errors.password && <span className="error-text">{errors.password}</span>}
@@ -202,9 +197,9 @@ const Signin = () => {
             </div>
 
             {/* Submit Button */}
-            <button 
-              type="submit" 
-              className="luxury-btn-submit" 
+            <button
+              type="submit"
+              className="luxury-btn-submit"
               disabled={isLoading}
             >
               {isLoading ? (

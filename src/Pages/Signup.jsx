@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify"; // Make sure to install and import this
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Signup = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
@@ -29,21 +29,20 @@ const Signup = () => {
     else if (formData.password.length < 8) newErrors.password = "Password must be at least 8 characters";
     else if (!/[A-Z]/.test(formData.password)) newErrors.password = "Password must contain at least one capital letter";
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate form before submitting
     if (!validateForm()) return;
-    
+
     setIsLoading(true);
-    
+
     try {
-      // Additional validation checks
       if (!formData.email) {
         toast.error("Please enter email!");
         setIsLoading(false);
@@ -65,45 +64,41 @@ const Signup = () => {
         return;
       }
 
-      // Prepare data for API
+
       const signupData = {
         email: formData.email,
-        phoneNumber: formData.phone, // API expects phoneNumber
+        phoneNumber: formData.phone,
         password: formData.password
       };
-      
+
       console.log("Sending signup data:", signupData);
-      
-      // Make API call for signup
+
+
       const response = await axios.post("https://task-79s6.onrender.com/api/register", signupData);
 
       const result = response.data;
       console.log({ result });
 
-      // Handle successful signup
       if (result?.status === true || result?.success || result?.data) {
         const accessToken = result?.data?.accessToken;
         const user = result?.data?.user;
-        
+
         console.log({ accessToken, user });
-        
-        // Store user data in session storage if available
+
         if (accessToken) {
           sessionStorage.setItem('accessToken', accessToken);
         }
         if (user) {
           sessionStorage.setItem('user', JSON.stringify(user));
         }
-        
-        // Show success message
+
         toast.success(result?.message || "Account created successfully! Welcome to SamLuxe Hotel!");
-        
-        // Navigate to signin or dashboard
+
         navigate("/signin");
       } else {
         toast.error("Signup unsuccessful! Please try again.");
       }
-      
+
     } catch (error) {
       const errorMsg = error?.response?.data?.message || "An error occurred during signup";
       toast.error(errorMsg);
@@ -119,7 +114,7 @@ const Signup = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
-    // Clear error when user starts typing
+
     if (errors[e.target.name]) {
       setErrors({
         ...errors,
@@ -145,7 +140,7 @@ const Signup = () => {
           <div className="card-header">
             <h1 className="signup-title">Join Our Exclusive Club</h1>
             <p className="signup-subtitle">
-              Create your account and unlock access to luxury accommodations, 
+              Create your account and unlock access to luxury accommodations,
               exclusive member benefits, and personalized concierge services.
             </p>
           </div>
@@ -225,8 +220,9 @@ const Signup = () => {
                     className="toggle-password"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? "👁️" : "👁️‍🗨️"}
+                    {showPassword ? "Hide" : "Show"}
                   </button>
+
                 </div>
                 {errors.password && <span className="error-text">{errors.password}</span>}
               </div>
@@ -257,9 +253,9 @@ const Signup = () => {
             </div>
 
             {/* Submit Button */}
-            <button 
-              type="submit" 
-              className="luxury-btn-submit" 
+            <button
+              type="submit"
+              className="luxury-btn-submit"
               disabled={isLoading}
             >
               {isLoading ? (

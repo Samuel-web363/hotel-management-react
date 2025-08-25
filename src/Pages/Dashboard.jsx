@@ -7,7 +7,7 @@ const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [showNotifications, setShowNotifications] = useState(false);
 
-  // Mock user data - in real app, this would come from API
+  
   useEffect(() => {
     const userData = {
       name: "Alexandra Sterling",
